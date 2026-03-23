@@ -18,7 +18,7 @@ engine = create_engine(db_url)
 # 3. Executing the SQL script to create tables
 print("Creating tables and constraints")
 with engine.begin() as conn:
-    with open('database_setup.sql', 'r') as file:
+    with open('schema.sql', 'r') as file:
         sql_script = file.read()
         conn.execute(text(sql_script))
 print("Tables created successfully!")
