@@ -44,5 +44,8 @@ In accordance with the course policy, we disclose the use of Gemini 3 Flash for 
 * Tasks Assisted: Syntax assistance for SQLAlchemy/Pandas, boilerplate generation for the README, and conceptual explanations of 3NF.
 * Sample Prompt: *"Write an idempotent Python script using Pandas and SQLAlchemy to clean and load data into PostgreSQL while handling NaNs."
 
+## 7. Youtube Video Link
+https://youtu.be/K1OWxqrYM6k
+
 
 
