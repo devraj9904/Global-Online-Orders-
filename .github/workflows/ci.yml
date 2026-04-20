@@ -7,11 +7,11 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
   data-quality-checks:
     runs-on: ubuntu-latest
     
-    # thiis tells GitHub to run these commands inside your dbt folder
     defaults:
       run:
         working-directory: ./retail_analytics
@@ -35,7 +35,6 @@ jobs:
 
       - name: Create dbt Profile and Run Tests
         env:
-          # This pulls your password securely from GitHub Secrets
           NEON_PASSWORD: ${{ secrets.NEON_PASSWORD }}
         run: |
           mkdir -p ~/.dbt
@@ -53,4 +52,5 @@ jobs:
                 schema: analytics_ci 
             target: dev
           EOF
+          dbt run
           dbt test
