@@ -7,8 +7,8 @@ SELECT
     o.shipperid,
     o.orderdate,
     od.quantity,
-    p.price AS unit_price, 
+    p.price AS unit_price,
     (od.quantity * p.price) AS totalamount
-FROM public.ordersdetails od
-JOIN public.orders o ON od.orderid = o.orderid
-JOIN public.products p ON od.productid = p.productid
+FROM public.ordersdetails AS od
+INNER JOIN public.orders AS o ON od.orderid = o.orderid
+INNER JOIN public.products AS p ON od.productid = p.productid
