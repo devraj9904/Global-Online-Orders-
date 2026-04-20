@@ -1,0 +1,54 @@
+name: Data CI/CD Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  data-quality-checks:
+    runs-on: ubuntu-latest
+    
+    # thiis tells GitHub to run these commands inside your dbt folder
+    defaults:
+      run:
+        working-directory: ./retail_analytics
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          pip install dbt-postgres sqlfluff
+
+      - name: Run SQL Linter (SQLFluff)
+        run: |
+          sqlfluff lint models/ --dialect postgres
+
+      - name: Create dbt Profile and Run Tests
+        env:
+          # This pulls your password securely from GitHub Secrets
+          NEON_PASSWORD: ${{ secrets.NEON_PASSWORD }}
+        run: |
+          mkdir -p ~/.dbt
+          cat << EOF > ~/.dbt/profiles.yml
+          retail_analytics:
+            outputs:
+              dev:
+                type: postgres
+                threads: 4
+                host: ep-soft-sun-anaklzr5-pooler.c-6.us-east-1.aws.neon.tech
+                port: 5432
+                user: neondb_owner
+                pass: $NEON_PASSWORD
+                dbname: neondb
+                schema: analytics_ci 
+            target: dev
+          EOF
+          dbt test

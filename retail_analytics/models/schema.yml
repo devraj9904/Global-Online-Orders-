@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "A flattened dimension table containing product, category, and supplier details."
+    columns:
+      - name: productid
+        description: "The primary key for this product."
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_sales
+    description: "The central fact table containing transactional metrics."
+    columns:
+      - name: orderdetailid
+        description: "The primary key for a single line item."
+        tests:
+          - unique
+          - not_null
+      - name: productid
+        description: "Foreign key linking to dim_products."
+        tests:
+          - relationships:
+              to: ref('dim_products')
+              field: productid
