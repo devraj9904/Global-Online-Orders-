@@ -1,10 +1,12 @@
 name: Data CI/CD Pipeline
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
-
 jobs:
   data-quality-checks:
     runs-on: ubuntu-latest
