@@ -1,2 +1,11 @@
 .env
 __pycache__/
+app/.env
+Mid Term/
+logs/
+.DS_Store
+Global Online Orders/
+retail_analytics/target/
+.env
+DMQL Assignment 2.docx
+DMQL Assignment 2.pdf
