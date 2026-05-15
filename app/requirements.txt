@@ -1,6 +1,6 @@
-streamlit==1.30.0
+streamlit
 psycopg2-binary
 pandas
 python-dotenv
 plotly
-altair<5
+altair
